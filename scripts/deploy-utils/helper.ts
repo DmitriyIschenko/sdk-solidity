@@ -9,12 +9,11 @@ let wallet: Wallet;
 let deployer: Deployer;
 
 const deployedContracts: Map<string, Contract> = new Map();
-const privateKey = "fe444afaa9577ea1524cb7645462a9619ec77b69687646a39ea4630b4e676ba9";
 
 function _createWalletAndDeployer(
     hre: HardhatRuntimeEnvironment
 ): [Wallet, Deployer] {
-    const wallet = new Wallet(privateKey);
+    const wallet = new Wallet(process.env.PRIVATE_KEY);
     console.log(`Wallet created ${wallet.address}`);
     return [wallet, new Deployer(hre, wallet)];
 }

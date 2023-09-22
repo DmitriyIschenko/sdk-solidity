@@ -7,7 +7,7 @@ import {getDefaultProvider, providers} from "ethers";
 import {Wallet} from "ethers";
 
 export default async function main (hre: HardhatRuntimeEnvironment) {
-    const privateKey = "fe444afaa9577ea1524cb7645462a9619ec77b69687646a39ea4630b4e676ba9";
+    const privateKey = process.env.PRIVATE_KEY
 
     if(network.zksync) {
         initializeZkSyncWalletAndDeployer(hre);
@@ -15,7 +15,6 @@ export default async function main (hre: HardhatRuntimeEnvironment) {
         await contract.initialize();
         await contract.setRuleId(776);
         return;
-
     }
 
     const UFIBuyerMumbaiFactory = await ethers.getContractFactory("UFIBuyerMumbai");
