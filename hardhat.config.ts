@@ -1,7 +1,7 @@
 import "@nomicfoundation/hardhat-toolbox";
 import { HardhatUserConfig } from "hardhat/types";
 import "@nomicfoundation/hardhat-chai-matchers";
-import "@openzeppelin/hardhat-upgrades";
+//import "@openzeppelin/hardhat-upgrades";
 import "hardhat-contract-sizer";
 import "hardhat-storage-layout";
 
@@ -27,10 +27,6 @@ const config: HardhatUserConfig = {
   },
   networks: {
     hardhat: {
-      forking: {
-        url: Infura.Mainnet,
-        blockNumber: 15646235
-      }
     },
     rinkeby: {
       url: Infura.Rinkeby,

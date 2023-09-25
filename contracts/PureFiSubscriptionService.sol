@@ -1,13 +1,12 @@
 pragma solidity >=0.8.0;
 
-import "../openzeppelin-contracts-upgradeable-master/contracts/access/AccessControlUpgradeable.sol";
-import "../openzeppelin-contracts-upgradeable-master/contracts/token/ERC20/IERC20Upgradeable.sol";
-import "../openzeppelin-contracts-upgradeable-master/contracts/token/ERC20/utils/SafeERC20Upgradeable.sol";
 import "../chainlink/contracts/src/v0.8/AutomationCompatible.sol";
 
 import "./tokenbuyer/ITokenBuyer.sol";
 import "./interfaces/IProfitDistributor.sol";
 import "./interfaces/IPureFiIssuerRequestResolver.sol";
+import "@openzeppelin/contracts-upgradeable/access/AccessControlUpgradeable.sol";
+import "@openzeppelin/contracts-upgradeable/token/ERC20/utils/SafeERC20Upgradeable.sol";
 
 contract PureFiSubscriptionService is AccessControlUpgradeable, AutomationCompatible {
 

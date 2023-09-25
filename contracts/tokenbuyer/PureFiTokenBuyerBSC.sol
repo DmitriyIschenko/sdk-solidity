@@ -3,8 +3,8 @@ pragma solidity ^0.8.0;
 import "./pancake/interfaces/IPancakeRouter01.sol";
 import "./pancake/interfaces/IPancakePair.sol";
 import "./pancake/interfaces/IPancakeFactory.sol";
-import "../../openzeppelin-contracts-upgradeable-master/contracts/access/OwnableUpgradeable.sol";
 import "./ITokenBuyer.sol";
+import "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
 
 contract PureFiTokenBuyerBSC is OwnableUpgradeable, ITokenBuyer {
 

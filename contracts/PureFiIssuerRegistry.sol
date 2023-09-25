@@ -5,7 +5,7 @@
 
 pragma solidity >=0.8.0;
 
-import "../openzeppelin-contracts-upgradeable-master/contracts/access/AccessControlUpgradeable.sol";
+import "@openzeppelin/contracts-upgradeable/access/AccessControlUpgradeable.sol";
 
 contract PureFiIssuerRegistry is AccessControlUpgradeable {
 

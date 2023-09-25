@@ -3,8 +3,8 @@ pragma solidity ^0.8.0;
 
 import "../uniswap/RouterInterface.sol";
 import "../uniswap/interfaces/IUniswapV2Pair.sol";
-import "../../openzeppelin-contracts-master/contracts/access/Ownable.sol";
 import "./ITokenBuyer.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
 
 contract PureFiTokenBuyerPolygon is Ownable, ITokenBuyer {
     uint16 public constant PERCENT_DENOM = 10000;

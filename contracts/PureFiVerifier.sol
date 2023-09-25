@@ -1,14 +1,12 @@
 // SPDX-License-Identifier: MIT
 pragma solidity >=0.8.0;
 
-import "../openzeppelin-contracts-upgradeable-master/contracts/security/PausableUpgradeable.sol";
-import "../openzeppelin-contracts-upgradeable-master/contracts/access/OwnableUpgradeable.sol";
-import "../openzeppelin-contracts-master/contracts/access/Ownable.sol";
 import "./libraries/SignLib.sol";
 import "./PureFiWhitelist.sol";
 import "./PureFiIssuerRegistry.sol";
 import "./utils/ParamStorage.sol";
 import "./interfaces/IPureFiVerifier.sol";
+import "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
 
 contract PureFiVerifier is OwnableUpgradeable, ParamStorage, SignLib, IPureFiVerifier{
 

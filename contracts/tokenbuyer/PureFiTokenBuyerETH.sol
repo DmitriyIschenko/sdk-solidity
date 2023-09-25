@@ -2,8 +2,8 @@ pragma solidity ^0.8.0;
 
 import "./uniswap/RouterInterface.sol";
 import "./uniswap/interfaces/IUniswapV2Pair.sol";
-import "../../openzeppelin-contracts-upgradeable-master/contracts/access/OwnableUpgradeable.sol";
 import "./ITokenBuyer.sol";
+import "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
 
 contract PureFiTokenBuyerETH is OwnableUpgradeable, ITokenBuyer {
 

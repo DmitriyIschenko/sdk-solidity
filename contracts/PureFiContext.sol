@@ -2,9 +2,9 @@
 
 pragma solidity ^0.8.0;
 
-import "../openzeppelin-contracts-upgradeable-master/contracts/proxy/utils/Initializable.sol";
 import "./interfaces/IPureFiVerifier.sol";
 import "./interfaces/IPureFiConstants.sol";
+import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
 
 interface IParamStorage{
     function getUint256(uint16 key) external view returns (uint256);
@@ -32,7 +32,7 @@ abstract contract PureFiContext is Initializable{
     uint256 private _txLocalPureFiCheckResult;
     bytes private _txLocalPureFiPackage; //similar to re-entrancy guard status or ThreadLocal in Java
 
-    function __PureFiContext_init_unchained(address _pureFiVerifier) internal initializer{
+    function __PureFiContext_init_unchained(address _pureFiVerifier) internal onlyInitializing{
         _txLocalPureFiCheckResult = _PUREFI_CONTEXT_NOT_VERIFIED;  
         _txLocalPureFiPackage = _PUREFI_CONTEXT_DATA_NOT_SET;
         pureFiVerifier = _pureFiVerifier;

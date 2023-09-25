@@ -1,12 +1,11 @@
 pragma solidity >=0.8.0;
 
 
-import "../../../openzeppelin-contracts-upgradeable-master/contracts/token/ERC20/IERC20Upgradeable.sol";
-import "../../../openzeppelin-contracts-upgradeable-master/contracts/token/ERC20/ERC20Upgradeable.sol";
-import "../../../openzeppelin-contracts-upgradeable-master/contracts/token/ERC20/utils/SafeERC20Upgradeable.sol";
 import "./IERC20Full.sol";
 import "../../PureFiContext.sol";
 import {VerificationPackage} from "../../interfaces/IPureFiVerifier.sol";
+import "@openzeppelin/contracts-upgradeable/token/ERC20/ERC20Upgradeable.sol";
+import "@openzeppelin/contracts-upgradeable/token/ERC20/utils/SafeERC20Upgradeable.sol";
 
 contract FilteredPool is ERC20Upgradeable, PureFiContext {
 
