@@ -55,6 +55,8 @@ async function main() {
         throw new Error('ADMIN or PROOF variable is missed');
     }
 
+    console.log(`Deployer: ${deployer.address}`);
+
     const PUREFI_TOKEN_FACTORY = await hre.ethers.getContractFactory("PureFiToken");
 
     const PPROXY = await hre.ethers.getContractFactory("PPRoxy");

@@ -18,12 +18,14 @@ const config: HardhatUserConfig = {
     }
   },
   networks: {
-    // hardhat: {
-    //   forking: {
-    //     url: Infura.Mainnet,
-    //     blockNumber: 15646235
-    //   }
-    // },
+    hardhat: {
+      forking: {
+        url: "https://rpc.arthera.net"
+      }
+    },
+    arthera_mainnet: {
+      url: "https://rpc.arthera.net"
+    }
 
 
   },
