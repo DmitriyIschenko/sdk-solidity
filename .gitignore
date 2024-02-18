@@ -20,3 +20,6 @@ chainlink/contracts/src/*
 !chainlink/contracts/src/v0.8/interfaces
 /chainlink/contracts/src/v0.8/interfaces/*
 !chainlink/contracts/src/v0.8/interfaces/AutomationCompatibleInterface.sol
+
+
+.env
