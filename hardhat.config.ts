@@ -19,12 +19,13 @@ const config: HardhatUserConfig = {
   },
   networks: {
     hardhat: {
-      forking: {
-        url: "https://rpc.arthera.net"
-      }
+      // forking: {
+      //   url: "https://rpc.arthera.net"
+      // }
     },
     arthera_mainnet: {
-      url: "https://rpc.arthera.net"
+       //url: "https://rpc.arthera.net"
+       url: "https://rpc-test2.arthera.net"
     }
 
 

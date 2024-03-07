@@ -6,10 +6,16 @@
 pragma solidity >=0.8.0;
 
 import "../openzeppelin-contracts-upgradeable-master/contracts/access/AccessControlUpgradeable.sol";
+import {ERC165} from "../openzeppelin-contracts-master/contracts/utils/introspection/ERC165.sol";
 
-contract PureFiIssuerRegistry is AccessControlUpgradeable {
+interface ISubscriptionOwner {
+    function getSubscriptionOwner() external view returns (address);
+}
+
+contract PureFiIssuerRegistry is AccessControlUpgradeable, ISubscriptionOwner, ERC165 {
 
     mapping (address=>bytes32) issuers;
+    address public subscriptionOwner;
 
     event IssuerAdded(address indexed issuer);
     event IssuerRemoved(address indexed issuer);
@@ -27,10 +33,25 @@ contract PureFiIssuerRegistry is AccessControlUpgradeable {
 
     function __registry_init_unchained(address _admin) internal initializer{
         _setupRole(DEFAULT_ADMIN_ROLE, _admin);
+        subscriptionOwner = _admin;
     }
 
     function initialize(address _admin) public initializer{
         __registry_init(_admin);
+    }
+
+    function setSubscriptionOwner(address newOwner) external onlyRole(DEFAULT_ADMIN_ROLE){
+        subscriptionOwner = newOwner;
+    }
+
+    function getSubscriptionOwner() external view returns (address) {
+        // the owner of the subscription must be an EOA
+        // Replace this with the account created in Step 1
+        return subscriptionOwner;
+    }
+
+    function supportsInterface(bytes4 interfaceId) public view override(AccessControlUpgradeable, ERC165) returns (bool) {
+        return interfaceId == type(ISubscriptionOwner).interfaceId || super.supportsInterface(interfaceId);
     }
 
     function register(address _issuer, bytes32 proof) external onlyRole(DEFAULT_ADMIN_ROLE) {

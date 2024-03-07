@@ -375,12 +375,7 @@ describe("Subscription Service", function () {
 
         // check that difference between result is less than 0.001%
         isSimilar(unrealized, estimatedUnrealized, 100000n);
-
-
     });
-
-
-
 })
 
 function isSimilar(a: any, b: any, delta: any) {

@@ -1,7 +1,6 @@
 // params for verifier
 import {BigNumber, utils} from "ethers";
 import hre from "hardhat";
-import ethers from "ethers";
 
 
 //DEPLOYER
@@ -46,7 +45,7 @@ async function main() {
         await (receipt).wait();
     }
 
-    if(hre.network.name !== "hardhat" && hre.network.name !== "arthera_mainnet"){
+    if (hre.network.name !== "hardhat" && hre.network.name !== "arthera_mainnet") {
         throw Error("This script only for Arthera mainnet");
     }
 
@@ -66,10 +65,14 @@ async function main() {
     const ISSUER_REGISTRY = await hre.ethers.getContractFactory("PureFiIssuerRegistry");
     const VERIFIER = await hre.ethers.getContractFactory("PureFiVerifier");
     const SUBSCRIPTION_SERVICE = await hre.ethers.getContractFactory("PureFiSubscriptionService");
-    const TOKEN_BUYER = await hre.ethers.getContractFactory("PureFiTokenBuyerPolygon");
+    const TOKEN_BUYER = await hre.ethers.getContractFactory("PureFiTokenBuyerArthera");
 
 
-    const PureFiToken = await (await PUREFI_TOKEN_FACTORY.connect(deployer).deploy("PureFi Token", "UFI")).deployed();
+    const PureFiToken = (await PUREFI_TOKEN_FACTORY.connect(deployer).deploy("PureFi Token", "UFI"));
+
+    await PureFiToken.deployed();
+
+    console.log("UFI Deployed at", PureFiToken.address);
 
     // DEPLOY PROXY_ADMIN //
     // ------------------------------------------------------------------- //
@@ -154,16 +157,19 @@ async function main() {
     // DEPLOY TOKEN_BUYER //
     // ------------------------------------------------------------------- //
 
-    const token_buyer = await TOKEN_BUYER.connect(deployer).deploy();
+    const token_buyer = await TOKEN_BUYER.connect(deployer).deploy(PureFiToken.address);
     await token_buyer.deployed();
     console.log("Token_buyer address :", token_buyer.address);
+
+    const MINTER_ROLE = await PureFiToken.connect(deployer).MINTER_ROLE();
+    await (await PureFiToken.connect(deployer).grantRole(MINTER_ROLE, token_buyer.address)).wait(1);
 
     // DEPLOY SUBSCRIPTION_SERVICE //
     // ------------------------------------------------------------------- //
 
-    const sub_service_mastercopy = await SUBSCRIPTION_SERVICE.connect(deployer).deploy();
+    const sub_service_mastercopy = await (await SUBSCRIPTION_SERVICE.connect(deployer).deploy()).deployed();
 
-    console.log("Subscription master copy : ", sub_service_mastercopy.address);
+    console.log("Subscription implementation: ", sub_service_mastercopy.address);
 
     const sub_service_proxy = await PPROXY.connect(deployer).deploy(sub_service_mastercopy.address, ProxyAdmin.address, "0x");
     await sub_service_proxy.deployed();
@@ -182,6 +188,9 @@ async function main() {
     let yearTS = 86400 * 365;
     let USDdecimals = decimals;//10^18 // for current contract implementation
     await (await sub_service.connect(deployer).setTierData(1, yearTS, BigNumber.from(50).mul(USDdecimals), 20, 1, 5)).wait();
+    //Mini tier below
+    await (await sub_service.connect(deployer).setTierData(5, yearTS, BigNumber.from(5).mul(USDdecimals), 20, 1, 3)).wait();
+
     await (await sub_service.connect(deployer).setTierData(2, yearTS, BigNumber.from(100).mul(USDdecimals), 20, 1, 15)).wait();
     await (await sub_service.connect(deployer).setTierData(3, yearTS, BigNumber.from(300).mul(USDdecimals), 20, 1, 45)).wait();
     await (await sub_service.connect(deployer).setTierData(10, yearTS, BigNumber.from(10000).mul(USDdecimals), 0, 3000, 10000)).wait();
