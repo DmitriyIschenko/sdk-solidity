@@ -24,8 +24,8 @@ const config: HardhatUserConfig = {
       // }
     },
     arthera_mainnet: {
-       //url: "https://rpc.arthera.net"
-       url: "https://rpc-test2.arthera.net"
+       url: "https://rpc.arthera.net"
+       // url: "https://rpc-test2.arthera.net"
     }
 
 

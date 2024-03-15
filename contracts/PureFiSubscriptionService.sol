@@ -197,15 +197,15 @@ contract PureFiSubscriptionService is AccessControlUpgradeable, AutomationCompat
         IProfitDistributor(profitDistributionAddress).setDistributionReadinessFlag();
     }
 
-    function subscribe(uint8 _tier) external payable {
+    function subscribe(uint8 _tier) external payable onlyRole(DEFAULT_ADMIN_ROLE) {
         _subscribe(_tier, msg.sender);
     }
 
-    function subscribeFor(uint8 _tier, address _subscriber) external payable {
+    function subscribeFor(uint8 _tier, address _subscriber) external payable onlyRole(DEFAULT_ADMIN_ROLE) {
         _subscribe(_tier, _subscriber);
     }
 
-    function unsubscribe() external payable {
+    function unsubscribe() external payable onlyRole(DEFAULT_ADMIN_ROLE) {
         uint8 userSubscriptionTier = userSubscriptions[msg.sender].tier;
         require(userSubscriptionTier > 0, "No subscription found");
         uint256 timeSubscribed = block.timestamp - userSubscriptions[msg.sender].dateSubscribed;
